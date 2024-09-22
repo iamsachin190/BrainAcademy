@@ -1,0 +1,247 @@
+import React, { useState } from "react";
+import Logo from "../Images/BrainLogo.png"; 
+import boyChar from  "../Images/BoysChar.png"; 
+
+import Icon from "../Images/LogoIcon.png" ;
+import Footer from "../components/Footer";
+import { Link } from "react-router-dom"; 
+import ContactUs from "../components/ContactUs";
+
+
+
+
+
+
+function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+    return ( 
+       <>
+       <div className="p-4 bg-white shadow-md">
+  <div className="flex items-center justify-between">
+    {/* Logo on the left */}
+    <div className="flex items-center">
+      <img
+        src="https://placehold.co/50x50"
+        alt="BrainAcademy logo"
+        className="w-12 h-12"
+      />
+      <span className="ml-2 text-lg font-bold">BrainAcademy</span>
+    </div>
+
+    {/* Hamburger menu for mobile view */}
+    <div className="md:hidden">
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="text-gray-700 focus:outline-none"
+      >
+        <i className="fas fa-bars text-2xl"></i>
+      </button>
+    </div>
+
+    {/* Links in desktop view (aligned right) */}
+    <div
+      className={`${
+        menuOpen ? "flex" : "hidden"
+      } flex-col md:flex-row items-center md:space-x-6 md:ml-auto space-y-4 md:space-y-0 md:flex mt-4 md:mt-0 bg-gray-800 p-4 rounded-lg`}
+    >
+      <a
+        href="#"
+        className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
+      >
+        TEST
+      </a>
+      <a
+        href="#"
+        className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
+      >
+        COURSE
+      </a>
+      <a
+        href="#"
+        className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
+      >
+        ASK DOUBT
+      </a>
+      <a
+        href="#"
+        className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
+      >
+        ABOUT
+      </a>
+      <a
+        href="#"
+        className="px-4 py-2 text-lg font-semibold text-white bg-blue-600 rounded-full"
+      >
+        GET STARTED
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen p-4">
+            <div className="font-aladin lg:mb-20 text-center md:text-left md:mr-8 mb-8 md:mb-0">
+              <h1 className="text-3xl tracking-widest md:text-5xl   text-black mb-4">
+                MAKE YOUR
+              </h1>
+              <h1 className="text-3xl tracking-widest  md:text-5xl  text-black mb-4">
+                LEARNING <span className="text-blue-500">MORE</span>
+              </h1>
+              <h1 className="text-3xl tracking-widest md:text-5xl  text-black mb-12">
+                EASIER WITH
+              </h1>
+              <div className="flex items-center justify-center md:justify-start mb-8">
+                <img className="h-10 w-10" src={Icon} />
+                <span className="text-xl ml-3 tracking-widest md:text-3xl  text-black">
+                  BRAINACADEMY
+                </span>
+              </div>
+              <div className="flex space-x-4 justify-center  md:justify-start">
+                <button className="bg-blue-600 text-white px-8 py-2 rounded lg:mr-20">
+                  Signup
+                </button>
+                <button className="bg-white text-blue-600 border border-blue-600 px-8 py-2 rounded ">
+                  Signin
+                </button>
+              </div>
+            </div>
+            <div className="lg:ml-10">
+              <img
+                src={boyChar}
+                alt="Animated character jumping with excitement"
+                className="w-64 md:w-96"
+                width="400"
+                height="400"
+              />
+            </div>
+          </div>
+
+          <div className="p-4 md:p-8">
+                    <div className="flex items-center mb-4">
+                        <h1 className="text-2xl md:text-4xl font-bold">Test</h1>
+                        <div className="flex-grow border-t-4 border-blue-600 ml-4"></div>
+                    </div>
+                   
+                    <div className="flex flex-col md:flex-row p-4 md:p-8 rounded-lg shadow-lg">
+                        <img src="https://placehold.co/300x200" alt="A child wearing headphones and giving a thumbs up while using a laptop" className="rounded-lg w-full md:w-1/2 mb-4 md:mb-0 md:mr-8"/>
+                        <div className="w-full md:w-1/2">
+                            <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-4">You Want To Know Where You Stand?</h2>
+                            <p className="text-gray-800 mb-4">
+                                Attempt <a href="#" className="text-blue-600">A Free Test</a> Now To Check Your Capabilities, That Helps You To Identify The Areas Of Strength And Weakness, Which Can Help Guide Further Study.
+                            </p>
+                            <button className="bg-blue-600 text-white px-4 py-2 rounded">Attempt Test</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+    <div>
+                     <div className="flex items-center mb-4">
+                        <h1 className="text-2xl md:text-4xl font-bold">Our Courses</h1>
+                        <div className="flex-grow border-t-4 border-blue-600 ml-4"></div>
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-20 mt-5">
+                        <div className="bg-gray-800 rounded-lg overflow-hidden w-48 text-center text-white">
+                            <img src="https://placehold.co/200x150" alt="Class 10 students studying" className="w-full h-36 object-cover" />
+                            <div className="mt-2">Class 10</div>
+                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-2 mb-2">More</button>
+                        </div>
+                        <div className="bg-gray-800 rounded-lg overflow-hidden w-48 text-center text-white">
+                            <img src="https://placehold.co/200x150" alt="Class 9 students studying" className="w-full h-36 object-cover" />
+                            <div className="mt-2">Class 9</div>
+                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-2 mb-2">More</button>
+                        </div>
+                        <div className="bg-gray-800 rounded-lg overflow-hidden w-48 text-center text-white">
+                            <img src="https://placehold.co/200x150" alt="Class 8 students studying" className="w-full h-36 object-cover" />
+                            <div className="mt-2">Class 8</div>
+                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-2 mb-2">More</button>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row justify-center items-center mt-10 px-5">
+                        <div className="max-w-md md:mr-5 text-center md:text-left">
+                            <h2 className="text-xl font-bold">About Academy</h2>
+                            <p className="mt-2">Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit, Feugiat Feugiat Congue Viverra Facilisis. Mauris, Volutpat Mi Libero Tellus Donec Amet Netus.</p>
+                            <p className="mt-2">Sapien Magna Purus, Maecenas Arcu, Enim Pretium. Tempor Sit Amet Nunc Sit Amet In Ac.</p>
+                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-4">Learn More</button>
+                        </div>
+                        <img src="https://placehold.co/400x250" alt="Academy environment with students and teachers" className="w-full max-w-md mt-5 md:mt-0 rounded-lg" />
+                    </div>
+                </div>
+
+
+                <footer className="bg-gray-900 text-white py-8">
+                    <div className="container mx-auto px-4">
+                        <div className="flex flex-col md:flex-row justify-between">
+                            <div className="flex items-center mb-4 md:mb-0">
+                                <img src="https://placehold.co/50x50" alt="Company Logo" className="h-10 w-10"/>
+                            </div>
+                            <div className="flex flex-col md:flex-row flex-wrap space-y-4 md:space-y-0 md:space-x-8">
+                                <div className="flex flex-col md:flex-row md:space-x-8">
+                                    <div>
+                                        <h4 className="font-semibold mb-2">SOLUTIONS</h4>
+                                        <ul>
+                                            <li>Explainable AI</li>
+                                            <li>ML Monitoring</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold mb-2">USE CASES</h4>
+                                        <ul>
+                                            <li>Fraud</li>
+                                            <li>Churn detection</li>
+                                            <li>Underwriting</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col md:flex-row md:space-x-8">
+                                    <div>
+                                        <h4 className="font-semibold mb-2">RESOURCES</h4>
+                                        <ul>
+                                            <li>Resource Hub</li>
+                                            <li>Blog</li>
+                                            <li>Learn More</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold mb-2">COMPANY</h4>
+                                        <ul>
+                                            <li>About Us</li>
+                                            <li>Careers</li>
+                                            <li>Events</li>
+                                            <li>Contact Us</li>
+                                            <li>Privacy Policy</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold mb-2">SUBSCRIBE</h4>
+                                    <form>
+                                        <input type="text" placeholder="Name" className="mb-2 p-2 w-full text-black"/>
+                                        <input type="email" placeholder="Company Email" className="mb-2 p-2 w-full text-black"/>
+                                        <button type="submit" className="bg-green-500 text-white p-2 w-full">Subscribe</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-col md:flex-row justify-between items-center mt-8">
+                            <p className="mb-4 md:mb-0">© FIDDLER — 2020</p>
+                            <div className="flex space-x-4">
+                                <a href="#" className="text-white"><i className="fab fa-linkedin"></i></a>
+                                <a href="#" className="text-white"><i className="fab fa-twitter"></i></a>
+                                <a href="#" className="text-white"><i className="fas fa-peace"></i></a>
+                                <a href="#" className="text-white"><i className="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+              
+
+
+
+       </>
+     );
+}
+
+export default Home;
