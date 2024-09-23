@@ -6,6 +6,7 @@ import Icon from "../Images/LogoIcon.png" ;
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom"; 
 import ContactUs from "../components/ContactUs";
+import DoubtSolvingSection from "./DoubtSolvingSection";
 
 
 
@@ -14,8 +15,30 @@ import ContactUs from "../components/ContactUs";
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showOfferBox, setShowOfferBox] = useState(true); 
     return ( 
        <>
+       {showOfferBox && (
+        <div className="bg-blue-100 text-blue-900 p-4 rounded-lg shadow-md mx-4 mt-4">
+          <div className="flex justify-between items-center">
+            <p className="text-lg font-semibold">
+              📚 Welcome to BrainAcademy! We're offering 
+              <span className="font-bold text-blue-500"> free tests</span>, 
+              <span className="font-bold text-blue-500"> personalized courses</span>, and 
+              <span className="font-bold text-blue-500"> 24/7 doubt solving</span>. 
+              Sign up today to make your learning easier!
+            </p>
+            <button
+              className="text-blue-500 hover:text-blue-700 font-bold text-lg ml-4"
+              onClick={() => setShowOfferBox(false)} // Close button to hide the offer box
+            >
+              ✖
+            </button>
+          </div>
+        </div>
+      )}
+        
+
        <div className="p-4 bg-white shadow-md">
   <div className="flex items-center justify-between">
     {/* Logo on the left */}
@@ -117,6 +140,8 @@ function Home() {
             </div>
           </div>
 
+          <DoubtSolvingSection/>
+
           <div className="p-4 md:p-8">
                     <div className="flex items-center mb-4">
                         <h1 className="text-2xl md:text-4xl font-bold">Test</h1>
@@ -134,41 +159,99 @@ function Home() {
                         </div>
                     </div>
                 </div>
+          
+          
+                <section className="bg-gray-100 py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold">Our Courses</h1>
+            <div className="flex-grow border-t-4 border-blue-600 ml-4"></div>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-10 mt-5">
+            {/* Course 1 */}
+            <div className="bg-white rounded-lg overflow-hidden w-64 text-center shadow-md">
+              <img
+                src="https://placehold.co/200x150"
+                alt="Class 10"
+                className="w-full h-36 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">Class 10</h3>
+                <button className="bg-purple-700 text-white py-2 px-4 rounded mt-4">
+                  More
+                </button>
+              </div>
+            </div>
+
+            {/* Course 2 */}
+            <div className="bg-white rounded-lg overflow-hidden w-64 text-center shadow-md">
+              <img
+                src="https://placehold.co/200x150"
+                alt="Class 9"
+                className="w-full h-36 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">Class 9</h3>
+                <button className="bg-purple-700 text-white py-2 px-4 rounded mt-4">
+                  More
+                </button>
+              </div>
+            </div>
+
+            {/* Course 3 */}
+            <div className="bg-white rounded-lg overflow-hidden w-64 text-center shadow-md">
+              <img
+                src="https://placehold.co/200x150"
+                alt="Class 8"
+                className="w-full h-36 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">Class 8</h3>
+                <button className="bg-purple-700 text-white py-2 px-4 rounded mt-4">
+                  More
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Us Section */}
+      <section className="bg-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold">About Us</h1>
+            <div className="flex-grow border-t-4 border-blue-600 ml-4"></div>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-center items-center mt-10 px-5">
+            <div className="max-w-md text-center md:text-left md:mr-8">
+              <h2 className="text-xl font-bold mb-4">Who We Are</h2>
+              <p className="text-gray-600 mb-4">
+                BrainAcademy is committed to making learning easier and more accessible for students from various classes.
+              </p>
+              <p className="text-gray-600 mb-4">
+                We offer comprehensive courses, resources, and one-on-one support to help students achieve their academic goals.
+              </p>
+              <button className="bg-purple-700 text-white py-2 px-4 rounded">
+                Learn More
+              </button>
+            </div>
+
+            <div className="mt-8 md:mt-0">
+              <img
+                src="https://placehold.co/400x250"
+                alt="Academy environment"
+                className="rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
 
-
-    <div>
-                     <div className="flex items-center mb-4">
-                        <h1 className="text-2xl md:text-4xl font-bold">Our Courses</h1>
-                        <div className="flex-grow border-t-4 border-blue-600 ml-4"></div>
-                    </div>
-                    <div className="flex flex-wrap justify-center gap-20 mt-5">
-                        <div className="bg-gray-800 rounded-lg overflow-hidden w-48 text-center text-white">
-                            <img src="https://placehold.co/200x150" alt="Class 10 students studying" className="w-full h-36 object-cover" />
-                            <div className="mt-2">Class 10</div>
-                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-2 mb-2">More</button>
-                        </div>
-                        <div className="bg-gray-800 rounded-lg overflow-hidden w-48 text-center text-white">
-                            <img src="https://placehold.co/200x150" alt="Class 9 students studying" className="w-full h-36 object-cover" />
-                            <div className="mt-2">Class 9</div>
-                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-2 mb-2">More</button>
-                        </div>
-                        <div className="bg-gray-800 rounded-lg overflow-hidden w-48 text-center text-white">
-                            <img src="https://placehold.co/200x150" alt="Class 8 students studying" className="w-full h-36 object-cover" />
-                            <div className="mt-2">Class 8</div>
-                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-2 mb-2">More</button>
-                        </div>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-center items-center mt-10 px-5">
-                        <div className="max-w-md md:mr-5 text-center md:text-left">
-                            <h2 className="text-xl font-bold">About Academy</h2>
-                            <p className="mt-2">Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit, Feugiat Feugiat Congue Viverra Facilisis. Mauris, Volutpat Mi Libero Tellus Donec Amet Netus.</p>
-                            <p className="mt-2">Sapien Magna Purus, Maecenas Arcu, Enim Pretium. Tempor Sit Amet Nunc Sit Amet In Ac.</p>
-                            <button className="bg-purple-700 text-white py-2 px-4 rounded mt-4">Learn More</button>
-                        </div>
-                        <img src="https://placehold.co/400x250" alt="Academy environment with students and teachers" className="w-full max-w-md mt-5 md:mt-0 rounded-lg" />
-                    </div>
-                </div>
+ 
 
 
                 <footer className="bg-gray-900 text-white py-8">
@@ -226,7 +309,7 @@ function Home() {
                             </div>
                         </div>
                         <div className="flex flex-col md:flex-row justify-between items-center mt-8">
-                            <p className="mb-4 md:mb-0">© FIDDLER — 2020</p>
+                            <p className="mb-4 md:mb-0">© BRAINACADEMY 2024</p>
                             <div className="flex space-x-4">
                                 <a href="#" className="text-white"><i className="fab fa-linkedin"></i></a>
                                 <a href="#" className="text-white"><i className="fab fa-twitter"></i></a>
