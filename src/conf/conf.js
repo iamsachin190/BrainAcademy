@@ -18,6 +18,9 @@ const conf = {
     appwriteQuestionsCollectionId: String(import.meta.env.VITE_APPWRITE_QUESTIONS_COLLECTION_ID),
     appwriteTestResponseCollectionId: String(import.meta.env.VITE_APPWRITE_TESTRESPONSE_COLLECTION_ID),
     appwriteTestSeriesCollectionId: String(import.meta.env.VITE_APPWRITE_TESTSERIES_COLLECTION_ID),
-}
-
-export default conf
+    appwriteAskQuestionsCollectionId: String(import.meta.env.VITE_APPWRITE_ASKQUESTIONS_COLLECTION_ID),
+    appwriteAskAnswerCollectionId: String(import.meta.env.VITE_APPWRITE_ASKANSWERS_COLLECTION_ID),
+    appwriteAnsRatingCollectionId: String(import.meta.env.VITE_APPWRITE_ANSWERSRATING_COLLECTION_ID),
+    appwritePeerCollebeCollectionId: String(import.meta.env.VITE_APPWRITE_PEERCOLLEBE_COLLECTION_ID),
+};
+export default conf;

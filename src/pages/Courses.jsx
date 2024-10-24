@@ -1,6 +1,6 @@
 // pages/Courses.js
 import React from 'react';
-import CourseCard from '../components/CourseCard'; // import the course card component
+import CourseCard from '../components/courses/CourseCard'; // import the course card component
 
 const Courses = () => {
   const courses = [

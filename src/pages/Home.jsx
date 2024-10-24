@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import Logo from "../Images/BrainLogo.png";
 import boyChar from "../Images/BoysChar.png";
 import Icon from "../Images/LogoIcon.png";
-import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import Footer from "../components/common/Footer"
+
+
+
+
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -38,6 +42,7 @@ function Home() {
         </div>
       )}
 
+
       <div className="p-4 bg-white shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -66,7 +71,7 @@ function Home() {
             } flex-col md:flex-row items-center md:space-x-6 md:ml-auto space-y-4 md:space-y-0 md:flex mt-4 md:mt-0 bg-gray-800 p-4 rounded-lg`}
           >
             <Link
-              to="/test"
+              to="/practice"
               className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
             >
               TEST
@@ -78,13 +83,13 @@ function Home() {
               COURSE
             </Link>
             <Link
-              to="/ask-doubt"
+              to="/askdoubt"
               className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
             >
               ASK DOUBT
             </Link>
             <Link
-              to="/about"
+              to="/ask-question"
               className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
             >
               ABOUT
@@ -223,7 +228,7 @@ function Home() {
               Areas Of Strength And Weakness, Which Can Help Guide Further
               Study.
             </p>
-            <Link to="/test">
+            <Link to="/practice">
               <button className="bg-blue-600 text-white px-4 py-2 rounded">
                 Attempt Test
               </button>
@@ -268,7 +273,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <Footer />
+      <Footer/>
     </>
   );
 }
