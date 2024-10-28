@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import Logo from "../Images/BrainLogo.png";
 import boyChar from "../Images/BoysChar.png";
 import Icon from "../Images/LogoIcon.png";
 import { Link } from "react-router-dom";
 import Footer from "../components/common/Footer"
+import { useSelector } from "react-redux";
+import Header from '../components/common/Header'
+
 
 
 
@@ -12,6 +14,12 @@ import Footer from "../components/common/Footer"
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showOfferBox, setShowOfferBox] = useState(true);
+  const user = useSelector((state) => state.auth.user);
+  console.log(user)
+  const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
+  console.log(isLoggedIn)
+  
+  
 
   return (
     <>
@@ -41,68 +49,7 @@ function Home() {
           </div>
         </div>
       )}
-
-
-      <div className="p-4 bg-white shadow-md">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <img
-              src={Logo}
-              alt="BrainAcademy logo"
-              className="w-15 h-20"
-            />
-            
-          </div>
-
-          {/* Hamburger menu for mobile view */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-gray-700 focus:outline-none"
-            >
-              <i className="fas fa-bars text-2xl"></i>
-            </button>
-          </div>
-
-          {/* Links in desktop view (aligned right) */}
-          <div
-            className={`${
-              menuOpen ? "flex" : "hidden"
-            } flex-col md:flex-row items-center md:space-x-6 md:ml-auto space-y-4 md:space-y-0 md:flex mt-4 md:mt-0 bg-gray-800 p-4 rounded-lg`}
-          >
-            <Link
-              to="/practice"
-              className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
-            >
-              TEST
-            </Link>
-            <Link
-              to="/courses"
-              className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
-            >
-              COURSE
-            </Link>
-            <Link
-              to="/askdoubt"
-              className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
-            >
-              ASK DOUBT
-            </Link>
-            <Link
-              to="/ask-question"
-              className="text-lg font-semibold text-white border-b-2 border-transparent hover:border-gray-400"
-            >
-              ABOUT
-            </Link>
-            <Link
-              to="/signup"
-              className="px-4 py-2 text-lg font-semibold text-white bg-blue-600 rounded-full"
-            >
-              GET STARTED
-            </Link>
-          </div>
-        </div>
-      </div>
+       <Header/>
 
       <div className="flex flex-col md:flex-row items-center justify-center min-h-screen p-4">
         <div className="font-aladin lg:mb-20 text-center md:text-left md:mr-8 mb-8 md:mb-0">

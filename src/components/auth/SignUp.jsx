@@ -1,88 +1,107 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import AuthService from '../../services/authService'; // Import your auth service
+import AuthService from '../../services/authService';
+import { useDispatch } from 'react-redux';
+import {  login } from '../../store/AuthSlice'
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     try {
-      // Send form data to create the user
-      await AuthService.createUser(
+      const userData = await AuthService.createUser(
         data.name,
         data.username,
         data.email,
         data.password,
         data.role
       );
-      navigate('/'); 
+      localStorage.setItem('userId', userData.$id);
+
+      if (userData) {
+        const currentUserData = await AuthService.getCurrentUser();
+      
+        if (currentUserData) dispatch(login(currentUserData));
+        navigate("/");
+      }
     } catch (error) {
       console.error('Error creating user:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input 
-          id="name" 
-          {...register('name', { required: 'Name is required' })} 
-          placeholder="Enter your name" 
-        />
-        {errors.name && <span>{errors.name.message}</span>}
-      </div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+        <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+        
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-gray-700">Name</label>
+          <input 
+            id="name" 
+            {...register('name', { required: 'Name is required' })} 
+            className="mt-2 p-2 w-full border rounded" 
+            placeholder="Enter your name" 
+          />
+          {errors.name && <span className="text-red-600">{errors.name.message}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="username">Username</label>
-        <input 
-          id="username" 
-          {...register('username', { required: 'Username is required' })} 
-          placeholder="Enter your username" 
-        />
-        {errors.username && <span>{errors.username.message}</span>}
-      </div>
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-gray-700">Username</label>
+          <input 
+            id="username" 
+            {...register('username', { required: 'Username is required' })} 
+            className="mt-2 p-2 w-full border rounded" 
+            placeholder="Enter your username" 
+          />
+          {errors.username && <span className="text-red-600">{errors.username.message}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input 
-          id="email" 
-          type="email" 
-          {...register('email', { required: 'Email is required' })} 
-          placeholder="Enter your email" 
-        />
-        {errors.email && <span>{errors.email.message}</span>}
-      </div>
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-gray-700">Email</label>
+          <input 
+            id="email" 
+            type="email" 
+            {...register('email', { required: 'Email is required' })} 
+            className="mt-2 p-2 w-full border rounded" 
+            placeholder="Enter your email" 
+          />
+          {errors.email && <span className="text-red-600">{errors.email.message}</span>}
+        </div>
 
-     
+        <div className="mb-4">
+          <label htmlFor="password" className="block text-gray-700">Password</label>
+          <input 
+            id="password" 
+            type="password" 
+            {...register('password', { required: 'Password is required' })} 
+            className="mt-2 p-2 w-full border rounded" 
+            placeholder="Enter your password" 
+          />
+          {errors.password && <span className="text-red-600">{errors.password.message}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="password">Password</label>
-        <input 
-          id="password" 
-          type="password" 
-          {...register('password', { required: 'Password is required' })} 
-          placeholder="Enter your password" 
-        />
-        {errors.password && <span>{errors.password.message}</span>}
-      </div>
+        <div className="mb-4">
+          <label htmlFor="role" className="block text-gray-700">Role</label>
+          <select 
+            id="role" 
+            {...register('role', { required: 'Role is required' })}
+            className="mt-2 p-2 w-full border rounded"
+          >
+            <option value="">Select a role</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+          {errors.role && <span className="text-red-600">{errors.role.message}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="role">Role</label>
-        <select 
-          id="role" 
-          {...register('role', { required: 'Role is required' })}>
-          <option value="">Select a role</option>
-          <option value="student">Student</option>
-          <option value="teacher">Teacher</option>
-        </select>
-        {errors.role && <span>{errors.role.message}</span>}
-      </div>
-
-      <button type="submit">Sign Up</button>
-    </form>
+        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+          Sign Up
+        </button>
+      </form>
+    </div>
   );
 };
 

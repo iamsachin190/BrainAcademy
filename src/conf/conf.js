@@ -22,5 +22,6 @@ const conf = {
     appwriteAskAnswerCollectionId: String(import.meta.env.VITE_APPWRITE_ASKANSWERS_COLLECTION_ID),
     appwriteAnsRatingCollectionId: String(import.meta.env.VITE_APPWRITE_ANSWERSRATING_COLLECTION_ID),
     appwritePeerCollebeCollectionId: String(import.meta.env.VITE_APPWRITE_PEERCOLLEBE_COLLECTION_ID),
+    appwriteFreeCoursesCollectionId: String(import.meta.env.VITE_APPWRITE_FREECOURSES_COLLECTION_ID),
 };
 export default conf;

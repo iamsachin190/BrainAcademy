@@ -18,9 +18,17 @@ import AnswerList from './components/AskDoubt/AnswerList';
 import PeerCollaboration from './components/AskDoubt/PeerCollaboration';
 import AskDoubtPage from './pages/AskDoubtPage';
 import QuestionDetailPage from './pages/QuestionDetailPage';
+import CourseDetailPage from './pages/CourseDetailPage';
+import CoursesPage from './pages/CoursesPage';
+import CreateCoursePage from './components/courses/CreateCoursePage';
+import UpdateCoursePage from './components/courses/UpdateCoursePage';
+import { Provider } from 'react-redux';
+import store from './store/store'
+
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Routes>
         {/* Home Page */}
@@ -53,9 +61,15 @@ function App() {
         <Route path="/peer-collaboration/:questionId" element={<PeerCollaboration />} />
         <Route path="/askdoubt" element={<AskDoubtPage/>} />
         <Route path="/askdoubt/questions/:questionId" element={<QuestionDetailPage/>} />
+
+        <Route path="/courses" element={<CoursesPage/>} />
+        <Route path="/courses/add" element={<CreateCoursePage/>} />
+        <Route path="/courses/edit/:courseId" element={<UpdateCoursePage/>} />
+        <Route path="/courses/:id" element={<CourseDetailPage />} />
         
       </Routes>
     </Router>
+    </Provider>
   );
 }
 
