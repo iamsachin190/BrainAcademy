@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShareAlt } from 'react-icons/fa';
 import CourseService from '../../services/courseService'
+import { useSelector } from 'react-redux';
+
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
-  const [selectedClass, setSelectedClass] = useState('');
+  const selectedClass = useSelector((state) => state.auth.selectedClass);
+  console.log(selectedClass);
+ 
+
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -26,25 +31,6 @@ const CoursesPage = () => {
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Free Courses</h1>
-      
-      {/* Class Selector */}
-      <div className="mb-4">
-        <label htmlFor="classSelector" className="mr-2 font-semibold">Select Your Class:</label>
-        <select 
-          id="classSelector" 
-          className="p-2 border rounded-md" 
-          value={selectedClass} 
-          onChange={(e) => setSelectedClass(e.target.value)}
-        >
-          <option value="">All Classes</option>
-          <option value="Class 9">Class 9</option>
-          <option value="Class 10">Class 10</option>
-          <option value="Class 11">Class 11</option>
-          <option value="Class 12">Class 12</option>
-          {/* Add other classes as needed */}
-        </select>
-      </div>
-
       {/* Courses Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {courses

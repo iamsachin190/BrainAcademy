@@ -16,14 +16,15 @@ function Home() {
   const [showOfferBox, setShowOfferBox] = useState(true);
   const user = useSelector((state) => state.auth.user);
   console.log(user)
-  const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   console.log(isLoggedIn)
   
   
 
   return (
     <>
-      {showOfferBox && (
+     
+     {!isLoggedIn && showOfferBox && (
         <div className="bg-blue-100 text-blue-900 p-4 rounded-lg shadow-md mx-4 mt-4">
           <div className="flex justify-between items-center">
             <p className="text-lg font-semibold">

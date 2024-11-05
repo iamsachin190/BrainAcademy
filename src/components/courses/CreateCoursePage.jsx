@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CourseService from '../../services/courseService'
+import CourseService from '../../services/courseService';
 
 const CreateCoursePage = () => {
   const [courseData, setCourseData] = useState({
@@ -7,7 +7,7 @@ const CreateCoursePage = () => {
     image: '',
     teacher: '',
     subject: '',
-    category: '',
+    class: '',
     duration: '',
     url: ''
   });
@@ -29,7 +29,7 @@ const CreateCoursePage = () => {
         image: '',
         teacher: '',
         subject: '',
-        category: '',
+        class: '',
         duration: '',
         url: ''
       });
@@ -48,7 +48,17 @@ const CreateCoursePage = () => {
         <input type="text" name="image" placeholder="Image URL" value={courseData.image} onChange={handleChange} required className="w-full p-2 border" />
         <input type="text" name="teacher" placeholder="Teacher" value={courseData.teacher} onChange={handleChange} required className="w-full p-2 border" />
         <input type="text" name="subject" placeholder="Subject" value={courseData.subject} onChange={handleChange} required className="w-full p-2 border" />
-        <input type="text" name="category" placeholder="Category" value={courseData.category} onChange={handleChange} required className="w-full p-2 border" />
+
+        {/* Dropdown for selecting class */}
+        <select name="class" value={courseData.class} onChange={handleChange} required className="w-full p-2 border">
+          <option value="" disabled>Select Class</option>
+          <option value="Class 10">Class 10</option>
+          <option value="Class 11">Class 11</option>
+          <option value="Class 12">Class 12</option>
+          
+          {/* Add more class options as needed */}
+        </select>
+
         <input type="text" name="duration" placeholder="Duration" value={courseData.duration} onChange={handleChange} required className="w-full p-2 border" />
         <input type="text" name="url" placeholder="Video URL" value={courseData.url} onChange={handleChange} required className="w-full p-2 border" />
         <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Create Course</button>

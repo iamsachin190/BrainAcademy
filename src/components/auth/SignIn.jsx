@@ -1,23 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/authService';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/AuthSlice';
+import { login as authLogin } from '../../store/AuthSlice';
+import Cookies from 'js-cookie';
 
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Check if user is already logged in on component mount
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const { user } = await AuthService.getCurrentUser();
+        if (user) {
+          // Dispatch the login action with user data
+          dispatch(authLogin({ user }));
+          // Redirect to home page if user is already logged in
+          navigate('/');
+        }
+      } catch (error) {
+        console.log("No active session found.");
+      }
+    };
+
+    checkSession();
+  }, [dispatch, navigate]);
+
   const onSubmit = async (data) => {
     try {
-      const userData = await AuthService.loginUser(data.email, data.password);
-      localStorage.setItem('userId', userData.$id);
-      dispatch(login(userData));
-      navigate('/');
+      const { session, user } = await AuthService.login(data.email, data.password);
+      if (session) {
+        // Store user session and info in the Redux store
+        dispatch(authLogin({ session, user }));
+        // Set user session cookie for persistence
+        Cookies.set('userId', session.$id, { expires: 7 });
+        // Redirect to home page after login
+        navigate('/');
+      }
     } catch (error) {
-      console.error('Error signing in:', error);
+      console.log("Error logging in:", error);
     }
   };
 

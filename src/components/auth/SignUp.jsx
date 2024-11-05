@@ -12,21 +12,17 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      const userData = await AuthService.createUser(
+      const { user, profile } = await AuthService.createUser(
         data.name,
-        data.username,
         data.email,
         data.password,
         data.role
       );
-      localStorage.setItem('userId', userData.$id);
-
-      if (userData) {
-        const currentUserData = await AuthService.getCurrentUser();
-      
-        if (currentUserData) dispatch(login(currentUserData));
-        navigate("/");
-      }
+       if (user) {
+      Cookies.set('userId', user.$id, { expires: 7 });
+      dispatch(login({ user, profile }));
+      navigate('/');
+    }
     } catch (error) {
       console.error('Error creating user:', error);
     }
@@ -46,17 +42,6 @@ const SignUp = () => {
             placeholder="Enter your name" 
           />
           {errors.name && <span className="text-red-600">{errors.name.message}</span>}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-gray-700">Username</label>
-          <input 
-            id="username" 
-            {...register('username', { required: 'Username is required' })} 
-            className="mt-2 p-2 w-full border rounded" 
-            placeholder="Enter your username" 
-          />
-          {errors.username && <span className="text-red-600">{errors.username.message}</span>}
         </div>
 
         <div className="mb-4">

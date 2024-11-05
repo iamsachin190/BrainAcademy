@@ -1,73 +1,88 @@
 import conf from "../conf/conf";
-import { appwriteDB } from "../utills/appwriteConfig.js"
+import { appwriteDB , account } from "../utills/appwriteConfig.js"
 import { ID , Permission, Role, } from 'appwrite';
+import Cookies from 'js-cookie';
+
 
 const AuthService = {
-  createUser: async (name, username, email, password, role="student") => {
+
+  saveUserIdToCookie: (userId) => {
+    if (userId) {
+      Cookies.set('userId', userId, { expires: 7, secure: true, sameSite: 'strict' });
+    } else {
+      console.error('Error saving user ID to cookie: User ID is empty');
+    }
+  },
+
+  getUserIdFromCookie: () => {
+    return Cookies.get('userId');
+  },
+
+  clearUserIdCookie: () => {
+    Cookies.remove('userId');
+  },
+
+  createUser: async (name, email, password, role = "student") => {
     try {
-      // Creating a user document in the database
-      const document = await appwriteDB.createDocument(
-        conf.appwriteDatabaseId, // Replace with your actual database ID
-        conf.appwriteUsersCollectionId, // Replace with your actual collection ID
-        ID.unique(), // Unique document ID
+      const user = await account.create('unique()', email, password, name);
+      const profile = await appwriteDB.createDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteUsersCollectionId,
+        'unique()',
         {
           name,
-          username,
           email,
-          password,
           role,
-
-        },
-        [
-            Permission.read(Role.any()), // Allow anyone to read
-            Permission.write(Role.any()), // Allow anyone to write
-          ]
+          userId: user.$id,
+        }
       );
-      return document;
+      return { user, profile };
     } catch (error) {
-      console.error('Error creating user document:', error);
+      console.error('Error creating user:', error);
       throw error;
     }
   },
 
-  loginUser: async (email, password) => {
+  login: async (email, password) => {
     try {
-      const session = await account.createEmailSession(email, password);
-      return session;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  },
-   getCurrentUser: async () =>{
-    try {
-      // Get the stored user ID from localStorage
-      const userId = localStorage.getItem('userId');
-      
-      if (!userId) {
-        return null; // No user is logged in
+      // Check if a session already exists
+      const sessionList = await account.listSessions();
+      if (sessionList.sessions.length > 0) {
+        // Log out from the current session before creating a new one
+        await account.deleteSession('current');
       }
 
-      // Fetch the user document from your custom user collection
-      const user = await appwriteDB.getDocument(conf.appwriteDatabaseId, conf.appwriteUsersCollectionId, userId);
-
-      return user; // Return the user's data if found
-
+      // Create a new session after clearing any existing ones
+      const session = await account.createEmailPasswordSession(email, password);
+      const user = await account.get();
+      return { session, user };
+      
     } catch (error) {
-      console.error('Error fetching user data:', error);
-      return null; // Return null if there's an error or no user found
+      console.error('Error logging in:', error);
+      throw error;
     }
   },
 
-
-  forgotPassword: async (email) => {
+  getCurrentUserProfile: async (userId) => {
     try {
-      // Send password recovery email via Appwrite
-      await account.createRecovery(
-        email,
-        'https://yourdomain.com/reset-password' // Redirect link where user will reset the password
+      const userProfile = await appwriteDB.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteUsersCollectionId,
+        [`equal("userId", "${userId}")`]
       );
+      return userProfile.documents[0];
     } catch (error) {
-      throw new Error(error.message);
+      console.error('Error fetching user profile:', error);
+      throw error;
+    }
+  },
+
+  logout: async () => {
+    try {
+      await account.deleteSession('current');
+      this.clearUserIdCookie();
+    } catch (error) {
+      console.error('Error logging out:', error);
     }
   },
 };

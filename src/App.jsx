@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -8,7 +8,6 @@ import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/LoginInPage';
 import AddDPP from './components/practice/dpp/AddDpp';
 import EditDPP from './components/practice/dpp/EditDpp';
-import ImportantQuestionsList from './components/practice/impQuestions/ImportantQuestionsList';
 import AddImportantQuestion from './components/practice/impQuestions/AddImportantQuestion';
 import EditImportantQuestion from './components/practice/impQuestions/EditImportantQuestion';
 import ImportantQuestionPage from './pages/PracticePages/ImportantQuestionsPage';
@@ -22,18 +21,34 @@ import CourseDetailPage from './pages/CourseDetailPage';
 import CoursesPage from './pages/CoursesPage';
 import CreateCoursePage from './components/courses/CreateCoursePage';
 import UpdateCoursePage from './components/courses/UpdateCoursePage';
-import { Provider } from 'react-redux';
-import store from './store/store'
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserFromStorage } from './store/AuthSlice';
+import Cookies from 'js-cookie';
+import AddLectures from './components/courses/AddLectures';
+
 
 
 function App() {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const user = Cookies.get('user');
+    console.log(user) ; 
+    if (user) {
+      dispatch(setUserFromStorage(JSON.parse(user)));
+    }
+  }, [dispatch]);
+
   return (
-    <Provider store={store}>
+    
     <Router>
       <Routes>
-        {/* Home Page */}
-        <Route path="/" element={<Home />} />
-
+        {
+          isLoggedIn ?    <Route path="/" element={<CoursesPage/>} />
+           :  ( <Route path="/" element={<Home />} />)
+        }
+       
         {/* About Page */}
         <Route path="/about" element={<About />} />
 
@@ -65,11 +80,12 @@ function App() {
         <Route path="/courses" element={<CoursesPage/>} />
         <Route path="/courses/add" element={<CreateCoursePage/>} />
         <Route path="/courses/edit/:courseId" element={<UpdateCoursePage/>} />
-        <Route path="/courses/:id" element={<CourseDetailPage />} />
+        <Route path="/courses/:courseId" element={<CourseDetailPage />} />
+        <Route path="/courses/:courseId/addlecture" element={<AddLectures />} />
         
       </Routes>
     </Router>
-    </Provider>
+    
   );
 }
 
