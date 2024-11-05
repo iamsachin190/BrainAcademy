@@ -15,11 +15,9 @@ const SignIn = () => {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const { user } = await AuthService.getCurrentUser();
+        const user = await AuthService.getCurrentUser();
         if (user) {
-          // Dispatch the login action with user data
           dispatch(authLogin({ user }));
-          // Redirect to home page if user is already logged in
           navigate('/');
         }
       } catch (error) {
@@ -34,11 +32,8 @@ const SignIn = () => {
     try {
       const { session, user } = await AuthService.login(data.email, data.password);
       if (session) {
-        // Store user session and info in the Redux store
         dispatch(authLogin({ session, user }));
-        // Set user session cookie for persistence
-        Cookies.set('userId', session.$id, { expires: 7 });
-        // Redirect to home page after login
+        Cookies.set('userId', user.$id, { expires: 7 });
         navigate('/');
       }
     } catch (error) {

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/authService';
 import { useDispatch } from 'react-redux';
 import {  login } from '../../store/AuthSlice'
+import Cookies from 'js-cookie';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
