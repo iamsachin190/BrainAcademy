@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedClass, logout } from '../../store/AuthSlice';
+import { logout } from '../../store/AuthSlice';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Logo from '../../Images/BrainLogo.png';
+import AuthService from '../../services/authService.js';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const dispatch = useDispatch();
-  const { isLoggedIn, selectedClass } = useSelector((state) => state.auth);
+  const { isLoggedIn} = useSelector((state) => state.auth);
 
-  const handleClassChange = (e) => {
-    const selectedClass = e.target.value;
-  
+  const handleLogout = async () => {
+    try {
+      // Call the AuthService logout function
+      const isLoggedOut = await AuthService.logout();
 
-    dispatch(setSelectedClass(selectedClass));
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
+      if (isLoggedOut) {
+        dispatch(logout());
+        navigate('/login'); 
+      } else {
+        console.log("No active session to log out.");
+        dispatch(logout());
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   return (
@@ -44,41 +51,32 @@ const Navbar = () => {
             menuOpen ? 'flex' : 'hidden'
           } flex-col md:flex-row items-center md:space-x-6 md:ml-auto space-y-4 md:space-y-0 md:flex mt-4 md:mt-0 bg-gray-800 p-4 rounded-lg md:bg-transparent md:p-0`}
         >
+           <Link to="/courses" className="text-lg font-semibold text-white md:text-gray-800">
+            Courses
+          </Link>
           <Link to="/practice" className="text-lg font-semibold text-white md:text-gray-800">
-            TEST
+            Tests 
           </Link>
-          <Link to="/courses" className="text-lg font-semibold text-white md:text-gray-800">
-            COURSE
-          </Link>
+         
           <Link to="/askdoubt" className="text-lg font-semibold text-white md:text-gray-800">
-            ASK DOUBT
+            Ask Douts
           </Link>
           <Link to="/about" className="text-lg font-semibold text-white md:text-gray-800">
-            ABOUT
+            Abouts
           </Link>
 
           {isLoggedIn ? (
             <>
-              <select
-                value={selectedClass || ''}
-                onChange={handleClassChange}
-                className="px-4 py-2 text-lg bg-gray-200 rounded-md"
-              >
-                <option value="">Select Class</option>
-                <option value="Class 10">Class 10</option>
-                <option value="Class 11">Class 11</option>
-                <option value="Class 12">Class 12</option>
-              </select>
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 text-lg font-semibold text-white bg-red-600 rounded-full hover:bg-red-700"
               >
-                LOGOUT
+                Logout
               </button>
             </>
           ) : (
             <Link to="/signup" className="px-4 py-2 text-lg font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700">
-              GET STARTED
+              Get Started
             </Link>
           )}
         </div>

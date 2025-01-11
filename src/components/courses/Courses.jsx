@@ -2,21 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShareAlt } from 'react-icons/fa';
 import CourseService from '../../services/courseService'
-import { useSelector } from 'react-redux';
 
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
-  const selectedClass = useSelector((state) => state.auth.selectedClass);
-  console.log(selectedClass);
- 
-
-
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const result = await CourseService.getAllCourses();
-        console.log(result) ;
         setCourses(result.documents);
       } catch (error) {
         console.error('Failed to fetch courses', error);
@@ -32,10 +25,8 @@ const CoursesPage = () => {
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Free Courses</h1>
-      {/* Courses Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {courses
-          .filter(course => !selectedClass || course.class === selectedClass)
           .map(course => (
             <div key={course.$id} className="bg-white rounded-lg shadow-md p-4 relative">
               <img src={course.image} alt={course.title} className="w-full h-40 object-cover rounded-lg" />

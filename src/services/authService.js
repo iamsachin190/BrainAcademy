@@ -20,6 +20,8 @@ const AuthService = {
     Cookies.remove('userId');
   },
 
+  
+
   createUser: async (name, email, password, role = "student") => {
     try {
       const user = await account.create(ID.unique(), email, password, name);
@@ -41,13 +43,12 @@ const AuthService = {
     }
   },
 
+
+
   login: async (email, password) => {
     try {
       const session = await account.createEmailPasswordSession(email, password);
       const user = await account.get();
-
-      // Save user ID to cookies for persistence
-      AuthService.saveUserIdToCookie(user.$id);
 
       return { session, user };
     } catch (error) {
@@ -55,6 +56,27 @@ const AuthService = {
       throw error;
     }
   },
+
+  logout: async () => {
+    try {
+      // Check if there's an active session
+      const sessions = await account.listSessions();
+      
+      if (sessions.total > 0) {
+        // If a session exists, delete the current session
+        await account.deleteSession('current');
+        return true;
+      } else {
+        console.log("No active session found.");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+      return false;
+    }
+  },
+
+
 
   getCurrentUser: async () => {
     try {

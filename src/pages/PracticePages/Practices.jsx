@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../../components/common/Header.jsx'
 
 const Practices = () => {
     return (
+        <>
+        <Header />
         <div className="container mx-auto p-6">
             <nav className="bg-white shadow-lg p-6 rounded-lg">
                 {/* DPP Section */}
@@ -48,6 +51,7 @@ const Practices = () => {
                 </div>
             </nav>
         </div>
+        </>
     );
 };
 

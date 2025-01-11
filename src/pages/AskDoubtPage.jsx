@@ -4,6 +4,8 @@ import AskQuestion from '../components/AskDoubt/AskQuestion';
 import levenshtein from 'js-levenshtein';
 import Pagination from './Pagination';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/common/Header'
+
 
 const AskDoubtPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -59,6 +61,8 @@ const AskDoubtPage = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
+        <>
+        <Header/>
         <div className="container mx-auto px-4 py-8">
             {/* Title */}
             <h2 className="text-3xl font-bold text-center mb-6">Ask a Doubt</h2>
@@ -109,6 +113,7 @@ const AskDoubtPage = () => {
                 <AskQuestion />
             </div>
         </div>
+        </>
     );
 };
 

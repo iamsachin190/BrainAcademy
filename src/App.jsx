@@ -21,24 +21,13 @@ import CourseDetailPage from './pages/CourseDetailPage';
 import CoursesPage from './pages/CoursesPage';
 import CreateCoursePage from './components/courses/CreateCoursePage';
 import UpdateCoursePage from './components/courses/UpdateCoursePage';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserFromStorage } from './store/AuthSlice';
-import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
 import AddLectures from './components/courses/AddLectures';
 
 
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const user = Cookies.get('user');
-    console.log(user) ; 
-    if (user) {
-      dispatch(setUserFromStorage(JSON.parse(user)));
-    }
-  }, [dispatch]);
 
   return (
     
