@@ -16,6 +16,7 @@ const CoursesPage = () => {
     const fetchCourses = async () => {
       try {
         const result = await CourseService.getAllCourses();
+        console.log(result) ;
         setCourses(result.documents);
       } catch (error) {
         console.error('Failed to fetch courses', error);
@@ -42,7 +43,7 @@ const CoursesPage = () => {
               <p className="text-sm text-gray-600">Teacher: {course.teacher}</p>
               <p className="text-sm text-gray-600">Subject: {course.subject}</p>
               <p className="text-sm text-gray-600">Category: {course.category}</p>
-              <p className="text-sm text-gray-600">Duration: {course.duration}</p>
+              <p className="text-sm text-gray-600">Duration: {course.duretion}</p>
               
               {/* Share Button */}
               <button
