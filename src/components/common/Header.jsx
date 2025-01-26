@@ -51,6 +51,9 @@ const Navbar = () => {
             menuOpen ? 'flex' : 'hidden'
           } flex-col md:flex-row items-center md:space-x-6 md:ml-auto space-y-4 md:space-y-0 md:flex mt-4 md:mt-0 bg-gray-800 p-4 rounded-lg md:bg-transparent md:p-0`}
         >
+          <Link to="/learning" className="text-lg font-semibold text-white md:text-gray-800">
+            Get Learning Path 
+          </Link>
            <Link to="/courses" className="text-lg font-semibold text-white md:text-gray-800">
             Courses
           </Link>

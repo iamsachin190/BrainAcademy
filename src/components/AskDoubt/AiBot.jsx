@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const AskDoubtPage = () => {
+const AiBot = () => {
   const [userMessage, setUserMessage] = useState(""); // Store the user's message
   const [chatHistory, setChatHistory] = useState([]); // Store the conversation history
   const [loading, setLoading] = useState(false); // Loading state
@@ -117,4 +117,4 @@ const AskDoubtPage = () => {
   );
 };
 
-export default AskDoubtPage;
+export default AiBot;
